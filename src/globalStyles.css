@@ -1,0 +1,53 @@
+:root{
+    --lima: #dcf8d6;
+    --green: #7edf66;
+    --red: #dc3254;
+    --yellow: #ffde59;
+    --musto: #dc9832;
+    --gris: #888888;
+}
+/* Colores de background */
+.bg-lima{
+    background-color: var(--lima);
+}
+.bg-green{
+    background-color: var(--green);
+}
+.bg-red{
+    background-color: var(--red);
+}
+.bg-red-hover:hover{
+    background-color: rgb(110, 24, 24);
+}
+.bg-yellow{
+    background-color: var(--yellow);
+}
+.bg-musto{
+    background-color: var(--musto);
+}
+.bg-gris{
+    background-color: var(--gris);
+}
+
+/* Colores de Texto */
+.text-lima{
+    color: var(--lima);
+}
+.text-green{
+    color: var(--green);
+}
+.text-red{
+    color: var(--red);
+}
+.text-yellow{
+    color: var(--yellow);
+}
+.text-musto{
+    color: var(--musto);
+}
+.text-gris{
+    color: var(--gris);
+}
+a{
+    text-decoration: none;
+}
