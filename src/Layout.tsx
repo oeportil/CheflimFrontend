@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -9,7 +9,7 @@ interface IUser {
 
 export default function Layout() {
   const[user, setUser] = useState<IUser>({});
-  const[auth, setAuth] = useState<boolean>(false);
+  const[auth, setAuth] = useState<boolean>(true);
 
   useEffect(() => {
     if(localStorage.getItem("user")){
@@ -21,6 +21,7 @@ export default function Layout() {
   return auth ? (
     <>
     <Header/>
+    <Outlet/>
     <Footer/>
     </>
   ) : (

@@ -1,7 +1,9 @@
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer className="bg-red text-white text-center py-4 fw-bold">
+      © Cheflim Network. Todos los derechos reservados
+    </footer>
   )
 }
 
