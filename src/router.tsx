@@ -9,39 +9,38 @@ import Descubre from "./privateRoutes/Descubre";
 import Perfil from "./privateRoutes/Perfil";
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout/>,
-      children: [
-        {
-          index:true,
-          element: <Inicio/>
-        },
-        {
-          path: "list",
-          element: <Lista/>
-        },
-        {
-          path: "discovered",
-          element: <Descubre/>
-        },
-        {
-          path: "user",
-          element: <Perfil/>
-        }
-      ]
-    },
-    {
-      path: "login",
-      element: <Login/>,
-      
-    },
-    {
-      path: "register",
-      element: <Register/>
-    },
-    {
-      path: "forgot-password",
-      element: <ForgotPassword/>
-    }
-  ]);
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Inicio />,
+      },
+      {
+        path: "list",
+        element: <Lista />,
+      },
+      {
+        path: "discover",
+        element: <Descubre />,
+      },
+      {
+        path: "user",
+        element: <Perfil />,
+      },
+    ],
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "register",
+    element: <Register />,
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPassword />,
+  },
+]);
