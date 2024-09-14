@@ -7,6 +7,9 @@ import Inicio from "./privateRoutes/Inicio";
 import Lista from "./privateRoutes/Lista";
 import Descubre from "./privateRoutes/Descubre";
 import Perfil from "./privateRoutes/Perfil";
+import MisRecetas from "./privateRoutes/PerfilSections/MisRecetas";
+import Favoritos from "./privateRoutes/PerfilSections/Favoritos";
+import Datos from "./privateRoutes/PerfilSections/Datos";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +31,11 @@ export const router = createBrowserRouter([
       {
         path: "user",
         element: <Perfil />,
+        children:[
+          {index: true, element: <MisRecetas/>},
+          {path:"favs", element:<Favoritos/>},
+          {path: "datos", element:<Datos/>}
+        ]
       },
     ],
   },
