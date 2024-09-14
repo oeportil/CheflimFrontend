@@ -1,4 +1,5 @@
-import { FaPlusCircle } from "react-icons/fa";
+
+import CrearRecetaBoton from "../components/CrearRecetaBoton";
 import Recetas from "../components/Recetas";
 
 const Inicio = () => {
@@ -9,10 +10,8 @@ const Inicio = () => {
           <h3>Bienvenido</h3>
           <h5>Bryan Avila</h5>
         </div>
-        <div className="bg-white text-red rounded-5">
-          <FaPlusCircle size={40}/>
-        </div>
-      </div>
+        <CrearRecetaBoton/>
+      </div>  
 
       <div className="my-2">
           <Recetas 

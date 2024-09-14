@@ -1,5 +1,5 @@
 import Nav from 'react-bootstrap/Nav';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 const Perfil = () => {
@@ -14,15 +14,15 @@ const Perfil = () => {
     <div className='card px-3 pt-2 pb-3 my-2 '>
       <Nav variant="underline" defaultActiveKey="/home">
         <Nav.Item>
-          <Nav.Link href='/user' disabled={location.pathname == "/user"} className={`text-black ${location.pathname == "/user" ? 'text-black-50' : ''}`} eventKey="/user">Mis Recetas</Nav.Link>
+          <Link to='/user' className={`text-black ${location.pathname == "/user" ? 'text-black-50' : ''}`} >Mis Recetas</Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href='/user/favs' disabled={location.pathname == "/user/favs"} className={`text-black ${location.pathname == "/user/favs" ? 'text-black-50' : ''}`} eventKey="/user/favs">Favoritos</Nav.Link>
+          <Link to='/user/favs' className={`text-black ${location.pathname == "/user/favs" ? 'text-black-50' : ''}`} >Favoritos</Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href='/user/datos' disabled={location.pathname == "/user/datos"} className={`text-black ${location.pathname == "/user/datos" ? 'text-black-50' : ''}`} eventKey="/user/datos">
+          <Link to='/user/datos' className={`text-black ${location.pathname == "/user/datos" ? 'text-black-50' : ''}`}>
             Mis Datos
-          </Nav.Link>
+          </Link>
         </Nav.Item>
       </Nav>
       <hr />
@@ -30,6 +30,9 @@ const Perfil = () => {
         <Outlet/>
       </div>
     </div>
+    <Link to={""}>
+
+    </Link>
   </main>
   )
 }

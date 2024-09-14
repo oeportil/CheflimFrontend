@@ -20,13 +20,13 @@ const MisRecetasCard = ({titulo, descripcion, calficacion, porciones, resenas, t
            </div>
            <div>
                 <Card.Title>{titulo}</Card.Title>
-                <Card.Text>
+                <div>
                     <p className="my-0">{descripcion}</p>
                     <div className="mt-2">
                         <p className="my-0">{porciones} porciones | {tiempo} minutos </p>
                         <p className="text-gris d-flex align-items-center"><FaStar className="text-yellow"/>{calficacion} ({resenas}) Reseñas </p>
                     </div>
-                </Card.Text>
+                </div>
            </div>
         </Card.Body>
     </Card>
