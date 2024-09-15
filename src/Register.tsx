@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa"; // Importa los íconos necesarios
 import { useState } from "react";
 import "./styles/registerStyles.css";
+import { registerSchema } from "./libs/Schemas";
 
 const Register = () => {
   //states para ver las passwords
@@ -15,22 +16,26 @@ const Register = () => {
 
     const formData = new FormData(event.currentTarget);
 
-    const userData = {
+    const data = {
       email: formData.get("email"),
       nombreCompleto: formData.get("nombreCompleto"),
       nombreUsuario: formData.get("nombreUsuario"),
       password: formData.get("password"),
     };
 
-    const repetirPassword = formData.get("repetirPassword");
-
-    if (repetirPassword != userData.password) {
+    const userData = registerSchema.safeParse(data);
+    //si algo no cuadra tira error
+    if (!userData.success) {
+      userData.error.issues.forEach((issue) => {
+        console.log(issue.message);
+      });
       return;
     }
 
-    const emptyFields = Object.values(userData);
-    if (emptyFields.includes(" ")) {
-      console.log("cojone falta un campo");
+    const repetirPassword = formData.get("repetirPassword");
+
+    if (repetirPassword != data.password) {
+      console.log("AAAAAAA");
       return;
     }
   };
