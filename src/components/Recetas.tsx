@@ -3,7 +3,7 @@ import { FaStar, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 type ICardInfo = {
-  titulo: string;
+  id_receta: number;
   descripcion: string;
   creador: string;
   porciones: number;
@@ -16,7 +16,7 @@ type ICardInfo = {
 };
 
 const Recetas = ({
-  titulo,
+  id_receta,
   descripcion,
   calificacion,
   porciones,
@@ -28,19 +28,18 @@ const Recetas = ({
   url,
 }: ICardInfo) => {
   return (
-    <Link to={`/recipe/${titulo}`} style={{ textDecoration: "none" }}>
+    <Link to={`/recipe/${id_receta}`} style={{ textDecoration: "none" }}>
       <Card className="mb-3">
         <Card.Body className="d-flex flex-column flex-sm-row">
           <div className="me-3">
             <Card.Img
               src={`${import.meta.env.VITE_API}/obtenerimg/${url}`}
-              alt={titulo}
+              alt={descripcion}
               style={{ width: "150px", height: "150px", objectFit: "cover" }}
             />
           </div>
           <div>
-            <Card.Title className="text-dark">{titulo}</Card.Title>
-            <Card.Text className="text-muted">{descripcion}</Card.Text>
+            <Card.Title className="text-dark">{descripcion}</Card.Title>
             <div className="mt-2">
               <p className="my-0 text-dark">de {creador}</p>
               <p className="my-0 text-muted">

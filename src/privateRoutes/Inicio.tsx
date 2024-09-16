@@ -39,7 +39,7 @@ const Inicio = () => {
           recetas.map((receta) => (
             <Recetas
               key={receta.id_receta}
-              titulo={receta.nombre}
+              id_receta={receta.id_receta}
               creador={receta.Usuarios.nombre}
               descripcion={receta.descripcion}
               calificacion={receta.calificacion}
