@@ -11,6 +11,7 @@ import MisRecetas from "./privateRoutes/PerfilSections/MisRecetas";
 import Favoritos from "./privateRoutes/PerfilSections/Favoritos";
 import Datos from "./privateRoutes/PerfilSections/Datos";
 import Receta from "./privateRoutes/Receta";
+import CrearReceta from "./privateRoutes/CrearReceta";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
           {path: "datos", element:<Datos/>}
         ]
       },
+      {
+        path: "crear-receta",
+        element: <CrearReceta/>
+      }
     ],
   },
   {
