@@ -12,41 +12,47 @@ import Favoritos from "./privateRoutes/PerfilSections/Favoritos";
 import Datos from "./privateRoutes/PerfilSections/Datos";
 import Receta from "./privateRoutes/Receta";
 import CrearReceta from "./privateRoutes/CrearReceta";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        index: true,
-        element: <Inicio />,
+        element: <Layout />,
+        children: [
+          {
+            index: true,
+            element: <Inicio />,
+          },
+          {
+            path: "list",
+            element: <Lista />,
+          },
+          {
+            path: "discover",
+            element: <Descubre />,
+          },
+          {
+            path: "recipe/:recipe",
+            element: <Receta />,
+          },
+          {
+            path: "user",
+            element: <Perfil />,
+            children: [
+              { index: true, element: <MisRecetas /> },
+              { path: "favs", element: <Favoritos /> },
+              { path: "datos", element: <Datos /> },
+            ],
+          },
+          {
+            path: "crear-receta",
+            element: <CrearReceta />,
+          },
+        ],
       },
-      {
-        path: "list",
-        element: <Lista />,
-      },
-      {
-        path: "discover",
-        element: <Descubre />,
-      },
-      {
-        path:"recipe/:recipe",
-        element: <Receta/>
-      },
-      {
-        path: "user",
-        element: <Perfil />,
-        children:[
-          {index: true, element: <MisRecetas/>},
-          {path:"favs", element:<Favoritos/>},
-          {path: "datos", element:<Datos/>}
-        ]
-      },
-      {
-        path: "crear-receta",
-        element: <CrearReceta/>
-      }
     ],
   },
   {

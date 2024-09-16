@@ -1,38 +1,68 @@
-import { Card } from "react-bootstrap"
-import { FaStar } from "react-icons/fa";
-
+import { Card } from "react-bootstrap";
+import { FaStar, FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 type ICardInfo = {
-    titulo: string,
-    descripcion: string,
-    creador: string
-    porciones: number, 
-    tiempo: number,
-    resenas: number,
-    calficacion: number
-}
+  titulo: string;
+  descripcion: string;
+  creador: string;
+  porciones: number;
+  tiempo: number;
+  resenas: number;
+  cresenas: number;
+  vistas: number;
+  calificacion: number;
+  url: string;
+};
 
-const Recetas = ({titulo, descripcion, calficacion, porciones, resenas, tiempo, creador}: ICardInfo) => {
+const Recetas = ({
+  titulo,
+  descripcion,
+  calificacion,
+  porciones,
+  resenas,
+  cresenas,
+  vistas,
+  tiempo,
+  creador,
+  url,
+}: ICardInfo) => {
   return (
-    <Card>
+    <Link to={`/recipe/${titulo}`} style={{ textDecoration: "none" }}>
+      <Card className="mb-3">
         <Card.Body className="d-flex flex-column flex-sm-row">
-           <div className="bg-red">
-               
-           </div>
-           <div>
-                <Card.Title>{titulo}</Card.Title>
-                <div>
-                    <p className="my-0">{descripcion}</p>
-                    <div className="mt-2">
-                        <p className="my-0">de {creador}</p>
-                        <p className="my-0">{porciones} porciones | {tiempo} minutos </p>
-                        <p className="text-gris d-flex align-items-center"><FaStar className="text-yellow"/>{calficacion} ({resenas}) Reseñas </p>
-                    </div>
-                </div>
-           </div>
+          <div className="me-3">
+            <Card.Img
+              src={`${import.meta.env.VITE_API}/obtenerimg/${url}`}
+              alt={titulo}
+              style={{ width: "150px", height: "150px", objectFit: "cover" }}
+            />
+          </div>
+          <div>
+            <Card.Title className="text-dark">{titulo}</Card.Title>
+            <Card.Text className="text-muted">{descripcion}</Card.Text>
+            <div className="mt-2">
+              <p className="my-0 text-dark">de {creador}</p>
+              <p className="my-0 text-muted">
+                {porciones} porciones | {tiempo} minutos
+              </p>
+              <div className="d-flex align-items-center text-warning">
+                <FaStar className="me-1" />
+                <span className="me-2">{calificacion}</span>
+                <span className="text-muted">
+                  ({resenas}) | {cresenas} Reseñas{" "}
+                </span>
+              </div>
+              <div className="d-flex align-items-center mt-1 text-muted">
+                <FaEye className="me-1" />
+                <span>{vistas} vistas</span>
+              </div>
+            </div>
+          </div>
         </Card.Body>
-    </Card>
-  )
-}
+      </Card>
+    </Link>
+  );
+};
 
-export default Recetas
+export default Recetas;
