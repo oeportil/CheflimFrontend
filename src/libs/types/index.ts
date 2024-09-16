@@ -4,7 +4,12 @@ export type Paso = {
 }
 
 export type Receta = {
-
+    id_receta: number
+    cantidadResenas: number
+    porciones: number
+    tiempo: number
+    descripcion: string
+    Imagenes:any
 }
 
 export interface IUser {

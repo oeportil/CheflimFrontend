@@ -31,6 +31,10 @@ export function userData(): IUser
 
 export function authHeader() {
     return {
-          Authorization: 'Bearer ' + userData().token.toString()
+          authorization: 'Bearer ' + userData().token.toString()
         }
+}
+
+export function Logout() {
+    localStorage.removeItem("userSession")
 }

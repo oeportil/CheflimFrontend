@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import CrearRecetaBoton from "../components/CrearRecetaBoton";
 import Recetas from "../components/Recetas";
+import { IUser } from "../libs/types";
 
 const Inicio = () => {
   const [recetas, setRecetas] = useState<any[]>([]);
-  const [userSession, setuserSession] = useState<any>(null);
+  const [userSession, setuserSession] = useState<IUser>({correo:"", id_usuario:0, nombre:"", token:"", usuario:""});
 
   useEffect(() => {
     const fetchRecetas = async () => {
@@ -29,7 +30,9 @@ const Inicio = () => {
       <div className="bg-green text-white my-2 py-2 px-4 rounded-3 d-flex flex-sm-row flex-column align-items-center justify-content-between">
         <div>
           <h3>Bienvenido</h3>
+          <h6> {userSession.usuario}</h6>
           {userSession && <h5>{userSession.nombre}</h5>}
+         
         </div>
         <CrearRecetaBoton />
       </div>

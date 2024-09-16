@@ -9,28 +9,31 @@ import { userData } from "../../controller/UserController"
 
 
 const MisRecetas = () => {
-  const [recetas, setRecetas] = useState<Receta>({})
+  const [recetas, setRecetas] = useState<Array<Receta>>([])
   useEffect(() => {
-    try {
-        
-        const respuesta = obtenerRecetasUser(userData().id_usuario)      
-    } catch (error) {
-      toast.error("Ocurrio un error"+error)
+    const getRecetas = async() =>{
+      try {        
+          const respuesta = await obtenerRecetasUser(userData().id_usuario) 
+          setRecetas(respuesta)     
+      } catch (error) {
+        toast.error("Ocurrio un error"+error)
+      }
     }
+    getRecetas()
   }, [])
   
   return (
     <>
     <div className="d-flex flex-column gap-2">
-        {[1,2,3,4,5,6,7,8,9,10].map((i) => (
+        {recetas.map((receta, i ) => (
           <MisRecetasCard 
           key={i}
-          titulo="Empanadas Argentinas"
+          image= {receta.Imagenes[0].url_imagen}
+          titulo={receta.descripcion}
           calficacion={4.9}
-          descripcion="Empanadas de la concha de su madre"
-          porciones={9}
-          resenas={50}
-          tiempo={30}
+          porciones={receta.porciones}
+          resenas={receta.cantidadResenas}
+          tiempo={receta.tiempo}
         />
         ))}
     </div>

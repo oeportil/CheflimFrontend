@@ -1,6 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import { Link, Outlet } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { userData } from '../controller/UserController';
 
 const Perfil = () => {
   const location = useLocation();
@@ -8,7 +9,7 @@ const Perfil = () => {
     <main className="container">
     <div className="bg-green text-white my-2 py-2 px-4 rounded-3 d-flex flex-sm-row flex-column align-items-center justify-content-between">
       <div>
-        <h3>Bryan Avila</h3>
+        <h3>{userData().nombre}</h3>
       </div>
     </div>
     <div className='card px-3 pt-2 pb-3 my-2 '>
