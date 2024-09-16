@@ -64,7 +64,7 @@ const CrearReceta = () => {
         </div>
         <div className="bg-green text-white my-2 py-3 px-4 rounded-3">
             <h2>Crear Receta</h2>
-            <input type="text" className="form-control" placeholder="juja" value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
+            <input type="text" className="form-control" placeholder="Nombre Receta" value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
         </div> 
         <div>
             <h4>Lista de Ingredientes</h4>

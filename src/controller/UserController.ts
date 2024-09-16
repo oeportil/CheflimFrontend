@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { SafeParseSuccess } from "zod";
+import { IUser } from "../libs/types";
 
 const api = import.meta.env.VITE_API;
 
@@ -21,4 +22,15 @@ export const login = async(user: User) =>{
     } catch (error: AxiosError | any) {
         throw new Error(error.response.data.error);
     }
+}
+
+export function userData(): IUser
+{
+    return JSON.parse(localStorage.getItem("userSession")!)
+}
+
+export function authHeader() {
+    return {
+          Authorization: 'Bearer ' + userData().token.toString()
+        }
 }
