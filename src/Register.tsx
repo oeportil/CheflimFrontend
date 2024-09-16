@@ -5,8 +5,9 @@ import { useState } from "react";
 import "./styles/registerStyles.css";
 import { useNavigate } from "react-router-dom";
 import { registerSchema } from "./libs/Schemas";
-import axios from "axios";
 import { toast } from "react-toastify";
+import api from "./libs/axios";
+import { IUser } from "./libs/types";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -44,18 +45,18 @@ const Register = () => {
     }
     //acá se valida que el usuairo no exista y se crea si no esta
     try {
-      const userExist = await axios.post(
+      const userExist = await api.post(
         `${import.meta.env.VITE_API}/checkifuser`,
         userData.data
       );
 
       if (!userExist.data.validacion!) {
         //esta crea el usuario
-        const { data } = await axios.post(
+        const { data } = await api.post<IUser>(
           `${import.meta.env.VITE_API}/createuser`,
           userData.data
         );
-        console.log(data);
+
         // Guarda solo el token y el ID del usuario en el localStorage
         localStorage.setItem("userSession", JSON.stringify(data));
 
