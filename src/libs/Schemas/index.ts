@@ -6,3 +6,8 @@ export const registerSchema = z.object({
   usuario: z.string().min(1, "Tu nombre de usuario no debe estar vacio"),
   contrasena: z.string().min(5, "La password debe ser mayor a 5 caracteres"),
 });
+
+export const LoginSchema = z.object({
+  correo: z.string().email("Email obligatorio"),
+  contrasena: z.string().min(5, "Error con contraseña")
+});

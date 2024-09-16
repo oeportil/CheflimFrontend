@@ -56,12 +56,10 @@ const Register = () => {
           userData.data
         );
         console.log(data);
-        const { token, id_usuario } = data; // Extrae el token y el ID del usuario
-
         // Guarda solo el token y el ID del usuario en el localStorage
         localStorage.setItem(
           "userSession",
-          JSON.stringify({ token, id_usuario })
+          JSON.stringify(data)
         );
 
         toast.success("Usuario creado correctamente");

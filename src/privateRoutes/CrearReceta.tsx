@@ -10,6 +10,7 @@ const CrearReceta = () => {
     const navigate = useNavigate();
     const [Ingredientes, setIngredientes] = useState<Array<string>>([]);
     const [Pasos, setPasos] = useState<Array<Paso>>([]);
+    const [titulo, setTitulo] = useState<string>("");
 
     const AgregarIngrediente = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -41,7 +42,7 @@ const CrearReceta = () => {
     const cambiarOrden = (nuevosPasos: Array<Paso>) => {       
         const pasosActualizados = nuevosPasos.map((paso, index) => ({
             ...paso,
-            orden: index + 1  // Nuevo valor de 'orden' basado en el índice del array
+            orden: index + 1 
         }));
         console.log(pasosActualizados)
         setPasos(pasosActualizados);
@@ -63,7 +64,7 @@ const CrearReceta = () => {
         </div>
         <div className="bg-green text-white my-2 py-3 px-4 rounded-3">
             <h2>Crear Receta</h2>
-            <input type="text" className="form-control" placeholder="juja" />
+            <input type="text" className="form-control" placeholder="juja" value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
         </div> 
         <div>
             <h4>Lista de Ingredientes</h4>
