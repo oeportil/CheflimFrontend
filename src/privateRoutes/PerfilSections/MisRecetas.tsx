@@ -26,7 +26,7 @@ const MisRecetas = () => {
       }
     };
     getRecetas();
-  }, []);
+  }, [recetas]);
 
   return (
     <>
@@ -35,6 +35,7 @@ const MisRecetas = () => {
           recetas.map((receta, i) => (
             <MisRecetasCard
               key={i}
+              id_receta={receta.id_receta}
               image={receta.Imagenes?.[0]?.url_imagen || "default-image.jpg"}
               titulo={receta.descripcion}
               calficacion={receta.calificacion}
