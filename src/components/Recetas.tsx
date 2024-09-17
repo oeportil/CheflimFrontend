@@ -3,7 +3,7 @@ import { FaStar, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 type ICardInfo = {
-  id_receta: number;
+  id_receta?: number;
   descripcion: string;
   creador: string;
   porciones: number;

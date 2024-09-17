@@ -32,4 +32,9 @@ export interface IReceta {
   Usuarios: { nombre: string };
   Imagenes: any;
   id_receta?: number
+  Resena?: any
+}
+
+export interface IFav {
+  Recetas: IReceta
 }
