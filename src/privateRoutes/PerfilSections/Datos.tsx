@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { IUser } from "../../libs/types";
 import { useEffect, useState } from "react";
+import EditUserInfoForm from "./components/EditUserInfoForm";
 
 const Datos = () => {
   //state para manejar los datos del usuario
   const [user, setUser] = useState<IUser | "">("");
+
+  const [EditUserInfoModal, setEditUserInfoModal] = useState<boolean>(false);
 
   //esto revisa los datos del localStorage y los parsea
   useEffect(() => {
@@ -21,8 +24,12 @@ const Datos = () => {
   }
   const { correo, nombre, usuario } = user;
 
+  const toogleEditModal = () => {
+    setEditUserInfoModal(!EditUserInfoModal);
+  };
+
   return (
-    <div>
+    <>
       <p className="fw-bold">
         Nombre: <span className="fw-normal">{nombre}</span>
       </p>
@@ -33,12 +40,12 @@ const Datos = () => {
         Correo: <span className="fw-normal">{correo}</span>
       </p>
       <div className="d-flex gap-2 text-center flex-column flex-sm-row">
-        <Link
-          to={"#"}
+        <button
+          onClick={toogleEditModal}
           className="bg-red text-white py-2 w-100 rounded-5 fw-bold"
         >
           Editar Datos
-        </Link>
+        </button>
         <Link
           to={"#"}
           className="bg-red text-white py-2 w-100 rounded-5 fw-bold"
@@ -46,7 +53,16 @@ const Datos = () => {
           Cambiar Contraseña
         </Link>
       </div>
-    </div>
+      <section className="mt-5 border border- rounded-3">
+        <div>
+          {EditUserInfoModal && (
+            <>
+              <EditUserInfoForm setEditUserInfoModal={setEditUserInfoModal} />
+            </>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

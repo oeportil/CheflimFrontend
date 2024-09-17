@@ -8,6 +8,7 @@ export type Receta = {
   cantidadResenas: number;
   porciones: number;
   tiempo: number;
+  calificacion: number;
   descripcion: string;
   Imagenes: any;
 };
@@ -21,13 +22,13 @@ export interface IUser {
 }
 
 export interface IReceta {
-  descripcion: string
-  userResena: number
-  isFavorito: boolean
-  porciones: number
-  tiempo: number
-  Ingredientes:  Array<{ingrediente: string}>
-  Pasos: Array<{paso: string}>
-  Usuarios: {nombre: string}
+  descripcion: string;
+  userResena: number;
+  isFavorito: boolean;
+  porciones: number;
+  tiempo: number;
+  Ingredientes: Array<{ ingrediente: string }>;
+  Pasos: Array<{ paso: string }>;
+  Usuarios: { nombre: string };
   Imagenes: any;
 }

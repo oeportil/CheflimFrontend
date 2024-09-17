@@ -37,7 +37,7 @@ const MisRecetas = () => {
               key={i}
               image={receta.Imagenes?.[0]?.url_imagen || "default-image.jpg"}
               titulo={receta.descripcion}
-              calficacion={4.9}
+              calficacion={receta.calificacion}
               porciones={receta.porciones}
               resenas={receta.cantidadResenas}
               tiempo={receta.tiempo}
