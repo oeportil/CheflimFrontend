@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { IUser } from "../../libs/types";
 import { useEffect, useState } from "react";
 import EditUserInfoForm from "./components/EditUserInfoForm";
+import EditPassword from "./components/EditPassword";
 
 const Datos = () => {
   //state para manejar los datos del usuario
   const [user, setUser] = useState<IUser | "">("");
 
-  const [EditUserInfoModal, setEditUserInfoModal] = useState<boolean>(false);
+  const [EditUserInfoModal, setEditUserInfoModal] = useState<boolean>(true);
+  const [editPassword, setEditPassword] = useState<boolean>(false);
 
   //esto revisa los datos del localStorage y los parsea
   useEffect(() => {
@@ -26,8 +28,12 @@ const Datos = () => {
 
   const toogleEditModal = () => {
     setEditUserInfoModal(!EditUserInfoModal);
+    setEditPassword(!editPassword);
   };
-
+  const toogleEditPassword = () => {
+    setEditPassword(!editPassword);
+    setEditUserInfoModal(!EditUserInfoModal);
+  };
   return (
     <>
       <p className="fw-bold">
@@ -46,20 +52,23 @@ const Datos = () => {
         >
           Editar Datos
         </button>
-        <Link
-          to={"#"}
+        <button onClick={toogleEditPassword}
           className="bg-red text-white py-2 w-100 rounded-5 fw-bold"
         >
           Cambiar Contraseña
-        </Link>
+        </button>
       </div>
       <section className="mt-5 border border- rounded-3">
         <div>
           {EditUserInfoModal && (
             <>
-              <EditUserInfoForm setEditUserInfoModal={setEditUserInfoModal} />
+              <EditUserInfoForm user={user} setUser={setUser} />
             </>
           )}
+          {editPassword && (
+            <EditPassword/>
+          )
+          }
         </div>
       </section>
     </>

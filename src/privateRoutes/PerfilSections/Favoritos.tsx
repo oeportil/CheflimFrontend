@@ -12,14 +12,16 @@ const Favoritos = () => {
       </Form>
       <div className="py-3 ms-4">
         <Recetas
-          titulo="Titulo Ejemplo"
           creador="Xavier Vasquez"
-          calficacion={4.5}
+          calificacion={4.5}
           descripcion="Unas pupusas bien buenardas"
           porciones={85}
           resenas={-32}
-          tiempo={0.01}
-        />
+          tiempo={0.01} 
+          id_receta={0} 
+          cresenas={0} 
+          vistas={0} 
+          url={""}        />
       </div>
     </>
   )

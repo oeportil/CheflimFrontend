@@ -79,14 +79,14 @@ const CrearReceta = () => {
     const tagsId = selectedTags.map((tag) => tag.id_tipo);
     const formData = new FormData(e.currentTarget);
 
+    const img: any = formData.get("img")!;
     const error: Array<string> = [];
     if (!titulo) error.push("El titulo debe de ser Obligatorio");
     if (formData.get("porciones")!.toString().length == 0)
       error.push("El numero de porciones es Obligatorio");
     if (formData.get("tiempo")!.toString().length == 0)
       error.push("El tiempo es Obligatorio");
-    if (formData.get("img")!.name.length == 0)
-      error.push("La Imagen es Obligatoria");
+    if (img.name.length == 0) error.push("La Imagen es Obligatoria");
     if (Ingredientes.length == 0) error.push("Agrege almenos un Ingrediente");
     if (Pasos.length == 0) error.push("Agrege almenos un Paso");
     if (tagsId.length == 0) error.push("Agrege almenos un Tag");
