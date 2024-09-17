@@ -56,7 +56,6 @@ const Register = () => {
           `${import.meta.env.VITE_API}/createuser`,
           userData.data
         );
-
         // Guarda solo el token y el ID del usuario en el localStorage
         localStorage.setItem("userSession", JSON.stringify(data));
 
