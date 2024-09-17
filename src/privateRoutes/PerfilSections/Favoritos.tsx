@@ -17,7 +17,7 @@ const Favoritos = () => {
     }
     getFavs()
   }, [])
-  console.log(favs[1])
+  //console.log(favs[1])
   return (
     <>
       <Form>
@@ -29,6 +29,7 @@ const Favoritos = () => {
         {favs.length != 0 ? favs.map((fav, i) => (
           <Recetas
           key={i}
+          id_receta={fav.Recetas.id_receta}
           creador={fav.Recetas.Usuarios.nombre}
           calificacion={fav.Recetas.userResena}
           descripcion={fav.Recetas.descripcion}

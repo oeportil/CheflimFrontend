@@ -6,7 +6,6 @@ import api from "../libs/axios";
 export const obtenerRecetasUser = async (id: number) => {
   try {
     const respuesta: AxiosResponse = await api.get(`/recetauser/${id}`);
-    console.log(respuesta);
     return respuesta.data;
   } catch (error: AxiosError | any) {
     throw new Error("Error" + error);
