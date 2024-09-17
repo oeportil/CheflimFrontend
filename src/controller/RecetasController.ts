@@ -49,3 +49,21 @@ export const CrearImagen = async (imagen: File, id_receta: number) => {
     throw new Error("Error" + error);
   }
 };
+
+export const getReceta = async(iduser: number, idReceta: number) => {
+  try {
+    const respuesta: AxiosResponse = await api.get(`/recetadetalle/${iduser}/${idReceta}`);
+    return respuesta.data;
+  } catch (error: AxiosError | any) {
+    throw new Error("Error" + error);
+  }
+}
+
+export const Calificar = async(resena: any) => {
+  try {
+    const respuesta: AxiosResponse = await api.post(`/resena`, resena);
+    return respuesta;
+  } catch (error: AxiosError | any) {
+    throw new Error("Error" + error);
+  }
+}

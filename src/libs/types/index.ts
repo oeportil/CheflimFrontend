@@ -19,3 +19,15 @@ export interface IUser {
   token: string;
   usuario: string;
 }
+
+export interface IReceta {
+  descripcion: string
+  userResena: number
+  isFavorito: boolean
+  porciones: number
+  tiempo: number
+  Ingredientes:  Array<{ingrediente: string}>
+  Pasos: Array<{paso: string}>
+  Usuarios: {nombre: string}
+  Imagenes: any;
+}
