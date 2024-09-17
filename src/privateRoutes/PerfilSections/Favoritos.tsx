@@ -11,6 +11,7 @@ const Favoritos = () => {
   useEffect(() => {
     const getFavs = async()=> {
       const fa = await obtenerFavs();
+      console.log(fa)
       setFavs(fa);
     }
     getFavs()

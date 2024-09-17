@@ -12,4 +12,12 @@ export const obtenerFavs = async () => {
       throw new Error(`${error}`);
     }
   };
-  
+
+  export const AddFav = async(obj: any) => {
+    try {
+      const respuesta: AxiosResponse = await api.post(`/addfav`, obj);
+      return respuesta;
+    } catch (error: AxiosError | any) {
+      throw new Error("Error" + error);
+    }
+  }

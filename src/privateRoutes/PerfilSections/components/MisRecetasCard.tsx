@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap"
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 type ICardInfo = {
@@ -9,11 +10,13 @@ type ICardInfo = {
     resenas: number,
     calficacion: number
     image: string
+    id_receta: number
 }
 
-const MisRecetasCard = ({titulo, calficacion, porciones, resenas, tiempo, image}: ICardInfo) => {
+const MisRecetasCard = ({titulo, calficacion, porciones, resenas, tiempo, image, id_receta}: ICardInfo) => {
   return (
-    <Card>
+    <Link to={`/recipe/${id_receta}`} style={{ textDecoration: "none" }}>
+          <Card>
         <Card.Body className="d-flex flex-column flex-sm-row">
            <div className="bg-red">
                
@@ -36,6 +39,8 @@ const MisRecetasCard = ({titulo, calficacion, porciones, resenas, tiempo, image}
            </div>
         </Card.Body>
     </Card>
+    </Link>
+
   )
 }
 

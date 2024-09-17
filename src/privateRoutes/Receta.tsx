@@ -11,13 +11,18 @@ import { Calificar, getReceta } from "../controller/RecetasController";
 import { userData } from "../controller/UserController";
 import { toast } from "react-toastify";
 
+//para indicar que es favorito
+import { FaBookmark } from "react-icons/fa";
+import { AddFav } from "../controller/FavsController";
+
 const Receta = () => {
     const navigate = useNavigate();
     const { recipe } = useParams();
     
     const [receta, setReceta] = useState<IReceta>({descripcion: "", 
       Ingredientes: [],  isFavorito: false, Pasos: [], 
-      porciones: 0, tiempo: 0, userResena: 0, Usuarios: {nombre: ""}, Imagenes:""});
+      porciones: 0, tiempo: 0, userResena: 0, Usuarios: {nombre: ""}, Imagenes:"", id_receta:0});
+
     useEffect(() =>{
         const tenerreceta = async() => {
             const rect = await getReceta(userData().id_usuario, parseInt(recipe!));
@@ -27,7 +32,6 @@ const Receta = () => {
         tenerreceta()
     }, [])
     const [rating, setRating] = useState<number>(0);
-  
 
         const publicstaticvoid = async(e: number)=> {
           try {
@@ -36,7 +40,6 @@ const Receta = () => {
               id_receta: parseInt(recipe!),
               valor: e
             }
-            console.log(resena)
             const respuesta = await Calificar(resena)
             if(respuesta.status == 200){
               setRating(e)
@@ -47,13 +50,29 @@ const Receta = () => {
           } 
         }
  
+  const AgregaroEliminar = async() =>{
+      const obj = {
+        idUsuario: userData().id_usuario,
+        idReceta: receta.id_receta
+      }
+      try {
+        const resultado = await AddFav(obj)
+        toast.success(resultado.data.mensaje)
+      } catch (error) {
+        toast.error(`${error}`)
+      }
+      setReceta({...receta, isFavorito: !receta.isFavorito})
+  }
+
   return (
     <main className="container">
       <div className="text-start mt-2" style={{cursor: "pointer"}} onClick={() => navigate(-1)}>
             <FaArrowLeft size={30}/>
       </div>
       <div className="bg-green text-white my-2 py-2 px-4 rounded-3 d-flex flex-column align-items-center">
-       
+        <div className="d-flex ms-auto my-2">
+          <FaBookmark size={35} className={`${receta.isFavorito ? "text-musto" : "text-black-50"}`} onClick={AgregaroEliminar} style={{cursor: "pointer"}}/>
+        </div>
         <div className="mx-auto text-center">
           <h3>{receta.descripcion}</h3>
           <h5>{receta.Usuarios.nombre}</h5>

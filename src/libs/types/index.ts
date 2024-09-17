@@ -31,4 +31,5 @@ export interface IReceta {
   Pasos: Array<{ paso: string }>;
   Usuarios: { nombre: string };
   Imagenes: any;
+  id_receta?: number
 }
