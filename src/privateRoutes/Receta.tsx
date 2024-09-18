@@ -123,7 +123,7 @@ const Receta = () => {
         id: receta.id_receta!,
         id_usuario: userData().id_usuario,
       });
-      if (resultado.status != 200) {
+      if (resultado.status != 201) {
         throw new Error("Error al hacer la denuncia");
       }
       setReceta({ ...receta, denunciado: !receta.denunciado });

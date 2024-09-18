@@ -72,6 +72,7 @@ export const Denunciar = async({id, id_usuario}: {id:number, id_usuario: number}
     const respuesta: AxiosResponse = await api.post(`/receta/${id}/denunciar`, {id_usuario});
     return respuesta;
   } catch (error: AxiosError | any) {
+    console.log(error)
     throw new Error("Error" + error);
   }
 }
