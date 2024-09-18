@@ -61,9 +61,9 @@ const Login = () => {
               <div className='d-flex justify-content-center'>
                 <Link to={"/register"} className='text-green fw-semibold'>Crear Cuenta</Link>
               </div>
-              <div className='d-flex justify-content-center'>
+              {/* <div className='d-flex justify-content-center'>
                 <Link to={"/forgot-password"} className='text-red fw-semibold'>Olvidaste tu contraseña?</Link>
-              </div>
+              </div> */}
             </div>
           </Card.Body>
         </Card>

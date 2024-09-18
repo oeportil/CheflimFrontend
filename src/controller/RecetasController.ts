@@ -76,3 +76,13 @@ export const Denunciar = async({id, id_usuario}: {id:number, id_usuario: number}
     throw new Error("Error" + error);
   }
 }
+
+export const editarReceta = async (receta: any, id: number) => {
+  try {
+    const respuesta: AxiosResponse = await api.put(`/updatereceta/${id}`, receta);
+    return respuesta.data;
+  } catch (error: AxiosError | any) {
+    console.log(error)
+    throw new Error("Error" + error);
+  }
+};

@@ -7,6 +7,7 @@ import { Reorder } from "framer-motion";
 import {
   CrearImagen,
   crearReceta,
+  editarReceta,
   getReceta,
   obtenerTags,
 } from "../controller/RecetasController";
@@ -26,6 +27,13 @@ const CrearReceta = () => {
   const [selectedTags, setSelectedTags] = useState<
     Array<{ id_tipo: number; nombre: string }>
   >([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false); // Estado para identificar si es edición
+
+  //los demas campos del formulario
+  const[porciones, setPorciones] = useState<number>(0);
+  const[tiempo, setTiempo] = useState<number>(0);
+  const[linkvideo, setLinkVideo] = useState<string>("");
+ 
   useEffect(() => {
     try {
       const llenarTags = async () => {
@@ -34,29 +42,34 @@ const CrearReceta = () => {
       };
       llenarTags();
 
-      const obtenerReceta = async() => {
-        const resultado = await getReceta(userData().id_usuario, parseInt(params.id!));
-       const arregloTag: any = []
-        resultado.TiposRecetas.map((element: any) =>{
-          arregloTag.push(element.Tipos)
-        })
-        setSelectedTags(arregloTag)
-
+      const obtenerReceta = async () => {
+        const resultado = await getReceta(
+          userData().id_usuario,
+          parseInt(params.id!)
+        );
+        console.log(resultado)
+        const arregloTag: any = [];
+        resultado.TiposRecetas.map((element: any) => {
+          arregloTag.push(element.Tipos);
+        });
+        setSelectedTags(arregloTag);
         setPasos(resultado.Pasos);
-        resultado.Ingredientes.map((element: any) => {
-          console.log(element.ingrediente)
-          setIngredientes([...Ingredientes, element.ingrediente])
-        });        
+        const ingredientesArray = resultado.Ingredientes.map((element: any) => element.ingrediente);
+        setIngredientes(ingredientesArray);
+        setTitulo(resultado.descripcion);
+        setPorciones(resultado.porciones);
+        setTiempo(resultado.tiempo)
+        setLinkVideo(resultado.video || "");
+      };
 
-        setTitulo(resultado.descripcion)
+      if (params.id !== undefined) {
+        setIsEditing(true); // Cambia el estado si estamos editando
+        obtenerReceta();
       }
-
-      // if(params.id != undefined) obtenerReceta()
-
     } catch (error) {
       toast.error(`${error}`);
     }
-  }, []);
+  }, [params.id]);
 
   const AgregarIngrediente = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,6 +79,7 @@ const CrearReceta = () => {
     setIngredientes([...Ingredientes, i.toString()]);
     e.currentTarget.reset();
   };
+
   const DeleteIngrediente = (ingrediente: string) => {
     const nuevosIngredientes = Ingredientes.filter((i) => i != ingrediente);
     setIngredientes(nuevosIngredientes);
@@ -108,10 +122,11 @@ const CrearReceta = () => {
       error.push("El numero de porciones es Obligatorio");
     if (formData.get("tiempo")!.toString().length == 0)
       error.push("El tiempo es Obligatorio");
-    if (img.name.length == 0) error.push("La Imagen es Obligatoria");
-    if (Ingredientes.length == 0) error.push("Agrege almenos un Ingrediente");
-    if (Pasos.length == 0) error.push("Agrege almenos un Paso");
-    if (tagsId.length == 0) error.push("Agrege almenos un Tag");
+    if (!isEditing && img.name.length == 0)
+      error.push("La Imagen es Obligatoria");
+    if (Ingredientes.length == 0) error.push("Agrege al menos un Ingrediente");
+    if (Pasos.length == 0) error.push("Agrege al menos un Paso");
+    if (tagsId.length == 0) error.push("Agrege al menos un Tag");
 
     if (error.length != 0) {
       error.forEach((err) => toast.error(err));
@@ -128,10 +143,20 @@ const CrearReceta = () => {
       tiempo: parseInt(formData.get("tiempo")!.toString()),
       video: formData.get("link") ?? "",
     };
+
     try {
-      const idReceta = await crearReceta(newReceta);
-      await CrearImagen(formData.get("img") as File, idReceta.id_receta);
-      toast.success("Receta creada con exito");
+      if (isEditing) {        
+        await editarReceta(newReceta, parseInt(params.id!));
+        // if (formData.get("img")) {
+        //   await CrearImagen(formData.get("img") as File, parseInt(params.id!));
+        // }
+        toast.success("Receta actualizada con éxito");
+      } else {
+
+        const idReceta = await crearReceta(newReceta);
+        await CrearImagen(formData.get("img") as File, idReceta.id_receta);
+        toast.success("Receta creada con éxito");
+      }
       navigate(-1);
     } catch (error) {
       toast.error(`${error}`);
@@ -147,6 +172,7 @@ const CrearReceta = () => {
     }
     setSelectedTags([...selectedTags, JSON.parse(e.target.value)]);
   };
+
   const eliminarTag = (i: number) => {
     const nuevosTags = selectedTags.filter((p) => p.id_tipo !== i);
     setSelectedTags(nuevosTags);
@@ -231,15 +257,15 @@ const CrearReceta = () => {
           <Form.Control type="file" name="img" />
           <Form.Group className="mt-2">
             <Form.Label>Link de video(Opcional)</Form.Label>
-            <Form.Control type="text" name="link" accept="image/*" />
+            <Form.Control type="text" name="link" accept="image/*" value={linkvideo} onChange={(e) => setLinkVideo(e.target.value)} />
           </Form.Group>
           <Form.Group className="mt-2">
             <Form.Label>Porciones</Form.Label>
-            <Form.Control type="number" name="porciones" />
+            <Form.Control type="number" name="porciones" value={porciones} onChange={(e) =>setPorciones(parseInt(e.target.value || "0"))} />
           </Form.Group>
           <Form.Group className="mt-2">
             <Form.Label>Tiempo de preparacion (minutos)</Form.Label>
-            <Form.Control type="number" name="tiempo" />
+            <Form.Control type="number" name="tiempo" value={tiempo} onChange={(e) =>setTiempo(parseInt(e.target.value || "0"))} />
           </Form.Group>
           <Form.Group className="mt-2">
             <Form.Label>Tag</Form.Label>
@@ -274,7 +300,7 @@ const CrearReceta = () => {
               className="bg-red bg-red-hover py-2 px-4 text-white  my-2 rounded-5"
               style={{ width: "100%", maxWidth: "300px" }}
             >
-              {!params.id ? 'Crear y Publicar' : 'Editar Receta'}
+              {!isEditing ? "Crear y Publicar" : "Editar Receta"}
             </button>
           </div>
         </Form>
