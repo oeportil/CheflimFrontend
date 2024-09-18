@@ -1,59 +1,82 @@
-:root{
-    --lima: #dcf8d6;
-    --green: #7edf66;
-    --red: #dc3254;
-    --yellow: #ffde59;
-    --musto: #dc9832;
-    --gris: #888888;
+:root {
+  --lima: #dcf8d6;
+  --green: #7edf66;
+  --red: #dc3254;
+  --yellow: #ffde59;
+  --musto: #dc9832;
+  --gris: #888888;
 }
 /* Colores de background */
-.bg-lima{
-    background-color: var(--lima);
+.bg-lima {
+  background-color: var(--lima);
 }
-.bg-green{
-    background-color: var(--green);
+.bg-green {
+  background-color: var(--green);
 }
-.bg-red{
-    background-color: var(--red);
-    border: none;
+.bg-red {
+  background-color: var(--red);
+  border: none;
 }
-.bg-red:active{
-    background-color: var(--red) !important;
-    border: none;
+.bg-red:active {
+  background-color: var(--red) !important;
+  border: none;
 }
-.bg-red-hover:hover{
-    background-color: rgb(110, 24, 24);
+.bg-red-hover:hover {
+  background-color: rgb(110, 24, 24);
 }
 
-.bg-yellow{
-    background-color: var(--yellow);
+.bg-yellow {
+  background-color: var(--yellow);
 }
-.bg-musto{
-    background-color: var(--musto);
+.bg-musto {
+  background-color: var(--musto);
 }
-.bg-gris{
-    background-color: var(--gris);
+.bg-gris {
+  background-color: var(--gris);
 }
 
 /* Colores de Texto */
-.text-lima{
-    color: var(--lima);
+.text-lima {
+  color: var(--lima);
 }
-.text-green{
-    color: var(--green);
+.text-green {
+  color: var(--green);
 }
-.text-red{
-    color: var(--red);
+.text-red {
+  color: var(--red);
 }
-.text-yellow{
-    color: var(--yellow);
+.text-yellow {
+  color: var(--yellow);
 }
-.text-musto{
-    color: var(--musto);
+.text-musto {
+  color: var(--musto);
 }
-.text-gris{
-    color: var(--gris);
+.text-gris {
+  color: var(--gris);
 }
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
+}
+/*Esto sirve para las listas*/
+.styled-list {
+  background-color: #f8f9fa; /* Color de fondo suave */
+  padding: 3rem;
+  border-radius: 8px;
+  border: 2px solid #ccc; /* Borde gris */
+  max-height: 45vh; /* Limita la altura */
+  overflow-y: auto; /* Añade scroll vertical si hay más de 5 elementos */
+}
+
+.list-item {
+  margin-bottom: 10px; /* Espacio entre los elementos de la lista */
+  padding: 0.75rem;
+  background-color: #fff; /* Fondo blanco para cada elemento */
+  border: 1px solid #ddd; /* Borde gris claro para cada elemento */
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: transform 0.3s ease;
+}
+
+.list-item:hover {
+  transform: scale(1.02); /* Efecto hover: ligeramente más grande */
 }
