@@ -51,6 +51,10 @@ export const router = createBrowserRouter([
             path: "crear-receta",
             element: <CrearReceta />,
           },
+          {
+            path: "editar-receta/:id",
+            element: <CrearReceta />,
+          }
         ],
       },
     ],

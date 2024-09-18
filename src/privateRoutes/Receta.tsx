@@ -40,6 +40,7 @@ const Receta = () => {
     Imagenes: "",
     id_receta: 0,
     denunciado: false,
+    video: ""
   });
 
   useEffect(() => {
@@ -170,6 +171,7 @@ const Receta = () => {
             alt={`imagen de ${receta.descripcion}`}
             style={{ width: "90%", maxWidth: "300px" }}
           />
+          {receta.video && <a href={receta.video} className="my-2 text-white">Ver Video de Ejemplo</a>}
           <Rating
             style={{ maxWidth: 180 }}
             value={rating}

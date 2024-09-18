@@ -7,13 +7,16 @@ import { Reorder } from "framer-motion";
 import {
   CrearImagen,
   crearReceta,
+  getReceta,
   obtenerTags,
 } from "../controller/RecetasController";
 import { toast } from "react-toastify";
 import { userData } from "../controller/UserController";
+import { useParams } from "react-router-dom";
 
 const CrearReceta = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const [Ingredientes, setIngredientes] = useState<Array<string>>([]);
   const [Pasos, setPasos] = useState<Array<Paso>>([]);
   const [titulo, setTitulo] = useState<string>("");
@@ -23,7 +26,6 @@ const CrearReceta = () => {
   const [selectedTags, setSelectedTags] = useState<
     Array<{ id_tipo: number; nombre: string }>
   >([]);
-
   useEffect(() => {
     try {
       const llenarTags = async () => {
@@ -31,6 +33,26 @@ const CrearReceta = () => {
         setTags(resultado);
       };
       llenarTags();
+
+      const obtenerReceta = async() => {
+        const resultado = await getReceta(userData().id_usuario, parseInt(params.id!));
+       const arregloTag: any = []
+        resultado.TiposRecetas.map((element: any) =>{
+          arregloTag.push(element.Tipos)
+        })
+        setSelectedTags(arregloTag)
+
+        setPasos(resultado.Pasos);
+        resultado.Ingredientes.map((element: any) => {
+          console.log(element.ingrediente)
+          setIngredientes([...Ingredientes, element.ingrediente])
+        });        
+
+        setTitulo(resultado.descripcion)
+      }
+
+      // if(params.id != undefined) obtenerReceta()
+
     } catch (error) {
       toast.error(`${error}`);
     }
@@ -186,9 +208,9 @@ const CrearReceta = () => {
         </Form>
 
         <Reorder.Group axis="y" values={Pasos} onReorder={cambiarOrden}>
-          {Pasos.map((paso) => (
+          {Pasos.map((paso, i) => (
             <Reorder.Item
-              key={paso.orden}
+              key={i}
               value={paso}
               className="d-flex align-items-center justify-content-between my-2 bg-white p-4 rounded-3 "
               style={{ cursor: "move" }}
@@ -252,7 +274,7 @@ const CrearReceta = () => {
               className="bg-red bg-red-hover py-2 px-4 text-white  my-2 rounded-5"
               style={{ width: "100%", maxWidth: "300px" }}
             >
-              Crear y Publicar
+              {!params.id ? 'Crear y Publicar' : 'Editar Receta'}
             </button>
           </div>
         </Form>

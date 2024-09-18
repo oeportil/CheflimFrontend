@@ -37,5 +37,6 @@ export interface IReceta {
   cantidadResenas?: number
   vistas?: number
   denunciado?: boolean
+  video: string
 }
 

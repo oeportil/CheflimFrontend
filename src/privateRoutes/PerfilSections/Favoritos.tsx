@@ -20,11 +20,6 @@ const Favoritos = () => {
   //console.log(favs[1])
   return (
     <>
-      <Form>
-          <Form.Group className="d-flex align-items-center gap-2">
-             <FaSearch/> <Form.Control type="text" placeholder={`Buscar Receta`}/>
-          </Form.Group>
-      </Form>
       <div className="py-3 ms-4">
         {favs.length != 0 ? favs.map((fav, i) => (
           <Recetas

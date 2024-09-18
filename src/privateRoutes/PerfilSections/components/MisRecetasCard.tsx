@@ -86,6 +86,11 @@ const MisRecetasCard = ({
                 >
                   Eliminar Receta
                 </button>
+                {/* <Link to={`/editar-receta/${id_receta}`}
+                  className="btn bg-musto fw-bold px-4 py-2 text-center text-white"
+                >
+                  Editar Receta
+                </Link> */}
               </div>
             </div>
           </div>
