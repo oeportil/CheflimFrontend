@@ -66,3 +66,12 @@ export const Calificar = async(resena: any) => {
     throw new Error("Error" + error);
   }
 }
+
+export const Denunciar = async({id, id_usuario}: {id:number, id_usuario: number}) => {
+  try {
+    const respuesta: AxiosResponse = await api.post(`/receta/${id}/denunciar`, {id_usuario});
+    return respuesta;
+  } catch (error: AxiosError | any) {
+    throw new Error("Error" + error);
+  }
+}

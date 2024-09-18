@@ -3,16 +3,16 @@ import { FaSearch } from "react-icons/fa";
 import Recetas from "../../components/Recetas";
 import { useEffect, useState } from "react";
 import { obtenerFavs } from "../../controller/FavsController";
-import { IFav } from "../../libs/types";
+import { IReceta } from "../../libs/types";
 
 const Favoritos = () => {
   //lo sampo any porque no se en exactitud que devuelve, cuando sepa lo cambio a type
-  const [favs, setFavs] = useState<Array<IFav>>([]);
+  const [favs, setFavs] = useState<Array<IReceta>>([]);
 
   useEffect(() => {
     const getFavs = async()=> {
-      const fa = await obtenerFavs();
-    
+      const fa = await obtenerFavs();  
+      console.log(fa)  
       setFavs(fa);
     }
     getFavs()
@@ -29,16 +29,16 @@ const Favoritos = () => {
         {favs.length != 0 ? favs.map((fav, i) => (
           <Recetas
           key={i}
-          id_receta={fav.Recetas.id_receta}
-          creador={fav.Recetas.Usuarios.nombre}
-          calificacion={fav.Recetas.userResena}
-          descripcion={fav.Recetas.descripcion}
-          porciones={fav.Recetas.porciones}
-          resenas={89}
-          tiempo={fav.Recetas.tiempo} 
-          cresenas={ 0 } 
-          vistas={0} 
-          url={""}/>
+          id_receta={fav.id_receta}
+          creador={fav.Usuarios.nombre}
+          calificacion={fav.promedioResenas!}
+          descripcion={fav.descripcion}
+          porciones={fav.porciones}
+          resenas={fav.promedioResenas!}
+          tiempo={fav.tiempo} 
+          cresenas={ fav.cantidadResenas! } 
+          vistas={fav.vistas!} 
+          url={fav.Imagenes[0].url_imagen}/>
         )) :
           <div className="text-center text-black-50">
             <h5>Aun no hay Favoritos</h5>

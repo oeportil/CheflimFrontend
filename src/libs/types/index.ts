@@ -33,8 +33,9 @@ export interface IReceta {
   Imagenes: any;
   id_receta?: number
   Resena?: any
+  promedioResenas?: number
+  cantidadResenas?: number
+  vistas?: number
+  denunciado?: boolean
 }
 
-export interface IFav {
-  Recetas: IReceta
-}

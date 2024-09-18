@@ -14,6 +14,7 @@ const Inicio = () => {
         const data = await response.json();
         setRecetas(data);
         const local = localStorage.getItem("userSession");
+        console.log(local)
         if (local) {
           setuserSession(JSON.parse(local));
         }

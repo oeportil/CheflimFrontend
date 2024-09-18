@@ -47,7 +47,7 @@ const Recetas = ({
               </p>
               <div className="d-flex align-items-center text-warning">
                 <FaStar className="me-1" />
-                <span className="me-2">{calificacion}</span>
+                {/* <span className="me-2">{calificacion}</span> */}
                 <span className="text-muted">
                   ({resenas}) | {cresenas} Reseñas{" "}
                 </span>
