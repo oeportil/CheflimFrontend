@@ -13,6 +13,9 @@ const Inicio = () => {
     usuario: "",
   });
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recetasPerPage = 5;
+
   useEffect(() => {
     const fetchRecetas = async () => {
       try {
@@ -32,6 +35,20 @@ const Inicio = () => {
     fetchRecetas();
     console.log(recetas);
   }, []);
+
+  const indexOfLastReceta = currentPage * recetasPerPage;
+  const indexOfFirstReceta = indexOfLastReceta - recetasPerPage;
+  const currentRecetas = recetas.slice(indexOfFirstReceta, indexOfLastReceta);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(recetas.length / recetasPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <main className="container">
       <div className="bg-green text-white my-2 py-2 px-4 rounded-3 d-flex flex-sm-row flex-column align-items-center justify-content-between">
@@ -44,8 +61,8 @@ const Inicio = () => {
       </div>
 
       <div className="my-2">
-        {recetas.length > 0 ? (
-          recetas.map((receta) => (
+        {currentRecetas.length > 0 ? (
+          currentRecetas.map((receta) => (
             <Recetas
               key={receta.id_receta}
               id_receta={receta.id_receta}
@@ -68,6 +85,25 @@ const Inicio = () => {
           <p>No hay recetas disponibles</p>
         )}
       </div>
+
+      <div className="d-flex justify-content-center my-3">
+        <ul className="pagination">
+          {pageNumbers.map((number) => (
+            <li
+              key={number}
+              className={`page-item ${number === currentPage ? "active" : ""}`}
+            >
+              <button
+                className="fs-4 bg-white border-1 rounded-3 mx-1"
+                onClick={() => handlePageChange(number)}
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <br />
     </main>
   );
 };

@@ -31,7 +31,7 @@ import { CommentSchema } from "../libs/Schemas";
 const Receta = () => {
   const navigate = useNavigate();
   const { recipe } = useParams();
-
+  const [validarCambios, setValidarCambios] = useState<number>(0);
   const [receta, setReceta] = useState<IReceta>({
     descripcion: "",
     Ingredientes: [],
@@ -47,16 +47,17 @@ const Receta = () => {
     denunciado: false,
     video: "",
   });
-
+  useEffect(() => {
+    setValidarCambios(validarCambios + 1);
+  }, []);
   useEffect(() => {
     const tenerreceta = async () => {
       const rect = await getReceta(userData().id_usuario, parseInt(recipe!));
-      console.log(rect);
       await setReceta(rect);
       await setRating(rect.userResena);
     };
     tenerreceta();
-  }, [receta]);
+  }, [validarCambios]);
   const [rating, setRating] = useState<number>(0);
 
   const publicstaticvoid = async (e: number) => {
@@ -69,8 +70,10 @@ const Receta = () => {
       const respuesta = await Calificar(resena);
       if (respuesta.status == 200) {
         setRating(e);
+        setValidarCambios(validarCambios + 1);
         toast.success("Calificado con exito");
       }
+      setValidarCambios(validarCambios + 1);
     } catch (error) {
       console.log(error);
     }
@@ -88,6 +91,7 @@ const Receta = () => {
       toast.error(`${error}`);
     }
     setReceta({ ...receta, isFavorito: !receta.isFavorito });
+    setValidarCambios(validarCambios + 1);
   };
   const AgregarLista = async () => {
     const obj = {
@@ -122,6 +126,7 @@ const Receta = () => {
     } else {
       DenunciarFun();
     }
+    setValidarCambios(validarCambios + 1);
   };
 
   async function DenunciarFun() {
@@ -130,11 +135,11 @@ const Receta = () => {
         id: receta.id_receta!,
         id_usuario: userData().id_usuario,
       });
-      if (resultado.status != 201) {
+      if (resultado.status != 200) {
         throw new Error("Error al hacer la denuncia");
       }
       setReceta({ ...receta, denunciado: !receta.denunciado });
-      toast.success("Se Cambio el estado de la denuncia");
+      toast.success(resultado.data.mensaje);
     } catch (error) {
       toast.error(`${error}`);
     }
@@ -161,13 +166,16 @@ const Receta = () => {
       );
       if (postComment.status === 202) {
         toast.success(postComment.data.message);
+        setValidarCambios(validarCambios + 1);
         return;
       } else {
         toast.success("Se publicó tu comentario");
+        setValidarCambios(validarCambios + 1);
         return;
       }
     } catch (error) {
       toast.error("Ocurrió una tragedia...");
+      setValidarCambios(validarCambios + 1);
       console.error(error);
     }
   };
