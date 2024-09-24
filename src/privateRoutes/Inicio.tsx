@@ -5,7 +5,13 @@ import { IUser } from "../libs/types";
 
 const Inicio = () => {
   const [recetas, setRecetas] = useState<any[]>([]);
-  const [userSession, setuserSession] = useState<IUser>({correo:"", id_usuario:0, nombre:"", token:"", usuario:""});
+  const [userSession, setuserSession] = useState<IUser>({
+    correo: "",
+    id_usuario: 0,
+    nombre: "",
+    token: "",
+    usuario: "",
+  });
 
   useEffect(() => {
     const fetchRecetas = async () => {
@@ -14,7 +20,7 @@ const Inicio = () => {
         const data = await response.json();
         setRecetas(data);
         const local = localStorage.getItem("userSession");
-        console.log(local)
+
         if (local) {
           setuserSession(JSON.parse(local));
         }
@@ -33,7 +39,6 @@ const Inicio = () => {
           <h3>Bienvenido</h3>
           <h6> {userSession.usuario}</h6>
           {userSession && <h5>{userSession.nombre}</h5>}
-         
         </div>
         <CrearRecetaBoton />
       </div>

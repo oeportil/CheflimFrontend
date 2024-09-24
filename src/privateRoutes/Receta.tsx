@@ -1,4 +1,4 @@
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaRegComment } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 //For ratings
@@ -23,6 +23,10 @@ import { addList } from "../controller/ListaController";
 //Icono de la concha de la lora
 import { MdBlockFlipped } from "react-icons/md";
 import Swal from "sweetalert2";
+import { Form, InputGroup } from "react-bootstrap";
+import { HiSpeakerphone } from "react-icons/hi";
+import api from "../libs/axios";
+import { CommentSchema } from "../libs/Schemas";
 
 const Receta = () => {
   const navigate = useNavigate();
@@ -33,6 +37,7 @@ const Receta = () => {
     Ingredientes: [],
     isFavorito: false,
     Pasos: [],
+    Comentarios: [],
     porciones: 0,
     tiempo: 0,
     userResena: 0,
@@ -40,7 +45,7 @@ const Receta = () => {
     Imagenes: "",
     id_receta: 0,
     denunciado: false,
-    video: ""
+    video: "",
   });
 
   useEffect(() => {
@@ -51,7 +56,7 @@ const Receta = () => {
       await setRating(rect.userResena);
     };
     tenerreceta();
-  }, []);
+  }, [receta]);
   const [rating, setRating] = useState<number>(0);
 
   const publicstaticvoid = async (e: number) => {
@@ -118,6 +123,7 @@ const Receta = () => {
       DenunciarFun();
     }
   };
+
   async function DenunciarFun() {
     try {
       const resultado = await Denunciar({
@@ -133,6 +139,38 @@ const Receta = () => {
       toast.error(`${error}`);
     }
   }
+
+  const SendComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formFata = new FormData(e.currentTarget);
+    const comment = formFata.get("comment");
+    if (!comment) {
+      toast.error("Debes ingresar un comentario");
+      return;
+    }
+    const commentObj = {
+      comentario: comment,
+      id_usuario: userData().id_usuario,
+    };
+    const commentData = CommentSchema.safeParse(commentObj);
+    try {
+      const postComment = await api.post(
+        `${import.meta.env.VITE_API}/receta/${receta.id_receta!}/comentario`,
+        commentData.data
+      );
+      if (postComment.status === 202) {
+        toast.success(postComment.data.message);
+        return;
+      } else {
+        toast.success("Se publicó tu comentario");
+        return;
+      }
+    } catch (error) {
+      toast.error("Ocurrió una tragedia...");
+      console.error(error);
+    }
+  };
 
   return (
     <main className="container">
@@ -171,7 +209,11 @@ const Receta = () => {
             alt={`imagen de ${receta.descripcion}`}
             style={{ width: "90%", maxWidth: "300px" }}
           />
-          {receta.video && <a href={receta.video} className="my-2 text-white">Ver Video de Ejemplo</a>}
+          {receta.video && (
+            <a href={receta.video} className="my-2 text-white">
+              Ver Video de Ejemplo
+            </a>
+          )}
           <Rating
             style={{ maxWidth: 180 }}
             value={rating}
@@ -179,7 +221,7 @@ const Receta = () => {
           />
         </div>
       </div>
-      <div>
+      <section>
         <h3 className="text-center">{receta.porciones} Porciones</h3>
         <div>
           <div className="d-flex justify-content-center">
@@ -210,7 +252,64 @@ const Receta = () => {
             ))}
           </ol>
         </div>
-      </div>
+      </section>
+      <section>
+        <h2 className="text-center my-4">¿Qué te parecio la receta?</h2>
+        <Form
+          className="row bg-white rounded-1 py-3 mx-0 mx-md-3"
+          onSubmit={SendComment}
+        >
+          <Form.Group className="mb-3 col-12 col-md-7">
+            <Form.Label htmlFor="coment" className="fw-semibold text-muted">
+              Deja un comentario sobre ella
+            </Form.Label>
+            <InputGroup>
+              <InputGroup.Text className="bg-white border-0">
+                <HiSpeakerphone className="text-muted" />
+              </InputGroup.Text>
+              <Form.Control
+                id="coment"
+                as="textarea"
+                placeholder="Esta receta es una..."
+                style={{ minHeight: "100px", maxHeight: "200px" }}
+                name="comment"
+                className="border-start-0"
+              />
+            </InputGroup>
+          </Form.Group>
+          <div className="d-flex justify-content-center align-items-center col-12 col-md-4 mt-3 mt-md-0">
+            <button
+              type="submit"
+              className="bg-red bg-red-hover p-2 text-white rounded-5 w-100"
+            >
+              Comentar
+            </button>
+          </div>
+        </Form>
+      </section>
+      <section>
+        <h2 className="text-center my-3">Otros comentarios</h2>
+        <ul className="list-group mb-5">
+          {receta.Comentarios.length > 0 ? (
+            receta.Comentarios.map((comentario, index) => (
+              <li className="list-group-item" key={index}>
+                <p>{comentario.comentario}</p>
+                <small>
+                  Por <strong>{comentario.Usuarios?.usuario}</strong> el{" "}
+                  {new Date(comentario.fecha).toLocaleDateString()}
+                </small>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item text-center bg-light p-4">
+              <FaRegComment size={24} className="mb-2 text-secondary" />
+              <span className="d-block text-muted font-weight-bold">
+                Aún no hay comentarios... ¡Puedes ser el primero!
+              </span>
+            </li>
+          )}
+        </ul>
+      </section>
     </main>
   );
 };

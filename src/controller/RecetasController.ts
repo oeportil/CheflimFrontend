@@ -49,40 +49,53 @@ export const CrearImagen = async (imagen: File, id_receta: number) => {
   }
 };
 
-export const getReceta = async(iduser: number, idReceta: number) => {
+export const getReceta = async (iduser: number, idReceta: number) => {
   try {
-    const respuesta: AxiosResponse = await api.get(`/recetadetalle/${iduser}/${idReceta}`);
+    const respuesta: AxiosResponse = await api.get(
+      `/recetadetalle/${iduser}/${idReceta}`
+    );
     return respuesta.data;
   } catch (error: AxiosError | any) {
     throw new Error("Error" + error);
   }
-}
+};
 
-export const Calificar = async(resena: any) => {
+export const Calificar = async (resena: any) => {
   try {
     const respuesta: AxiosResponse = await api.post(`/resena`, resena);
     return respuesta;
   } catch (error: AxiosError | any) {
     throw new Error("Error" + error);
   }
-}
+};
 
-export const Denunciar = async({id, id_usuario}: {id:number, id_usuario: number}) => {
+export const Denunciar = async ({
+  id,
+  id_usuario,
+}: {
+  id: number;
+  id_usuario: number;
+}) => {
   try {
-    const respuesta: AxiosResponse = await api.post(`/receta/${id}/denunciar`, {id_usuario});
+    const respuesta: AxiosResponse = await api.post(`/receta/${id}/denunciar`, {
+      id_usuario,
+    });
     return respuesta;
   } catch (error: AxiosError | any) {
-    console.log(error)
+    console.log(error);
     throw new Error("Error" + error);
   }
-}
+};
 
 export const editarReceta = async (receta: any, id: number) => {
   try {
-    const respuesta: AxiosResponse = await api.put(`/updatereceta/${id}`, receta);
+    const respuesta: AxiosResponse = await api.put(
+      `/updatereceta/${id}`,
+      receta
+    );
     return respuesta.data;
   } catch (error: AxiosError | any) {
-    console.log(error)
+    console.log(error);
     throw new Error("Error" + error);
   }
 };

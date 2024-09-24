@@ -28,15 +28,15 @@ export interface IReceta {
   porciones: number;
   tiempo: number;
   Ingredientes: Array<{ ingrediente: string }>;
+  Comentarios: Array<any>;
   Pasos: Array<{ paso: string }>;
   Usuarios: { nombre: string };
   Imagenes: any;
-  id_receta?: number
-  Resena?: any
-  promedioResenas?: number
-  cantidadResenas?: number
-  vistas?: number
-  denunciado?: boolean
-  video: string
+  id_receta?: number;
+  Resena?: any;
+  promedioResenas?: number;
+  cantidadResenas?: number;
+  vistas?: number;
+  denunciado?: boolean;
+  video: string;
 }
-

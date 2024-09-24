@@ -9,5 +9,10 @@ export const registerSchema = z.object({
 
 export const LoginSchema = z.object({
   correo: z.string().email("Email obligatorio"),
-  contrasena: z.string().min(5, "Error con contraseña")
+  contrasena: z.string().min(5, "Error con contraseña"),
+});
+
+export const CommentSchema = z.object({
+  comentario: z.string().min(1, "El comentario no puede ir vacio"),
+  id_usuario: z.number(),
 });
